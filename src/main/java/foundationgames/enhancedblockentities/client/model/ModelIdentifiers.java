@@ -69,6 +69,7 @@ public final class ModelIdentifiers implements ModelLoadingPlugin {
     public static final Identifier BELL_BODY = of("block/bell_body", BELL_PREDICATE);
 
     public static final Identifier DECORATED_POT_BASE = of("block/decorated_pot_base", DECORATED_POT_PREDICATE);
+    public static final Identifier DECORATED_POT_SHAKING = of("block/decorated_pot_shaking", DECORATED_POT_PREDICATE);
 
     public static final Map<DyeColor, Identifier> SHULKER_BOXES = new HashMap<>();
     public static final Map<DyeColor, Identifier> SHULKER_BOX_BOTTOMS = new HashMap<>();

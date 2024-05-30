@@ -6,7 +6,9 @@ import foundationgames.enhancedblockentities.config.EBEConfig;
 import foundationgames.enhancedblockentities.util.DateUtil;
 import foundationgames.enhancedblockentities.util.EBEUtil;
 import foundationgames.enhancedblockentities.util.ResourceUtil;
+import foundationgames.enhancedblockentities.util.WorldUtil;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
@@ -22,6 +24,7 @@ public final class EnhancedBlockEntities implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         WorldRenderEvents.END.register(SignRenderManager::endFrame);
+        ClientTickEvents.END_WORLD_TICK.register(WorldUtil.EVENT_LISTENER);
 
         ModelIdentifiers.init();
         EBESetup.setupResourceProviders();

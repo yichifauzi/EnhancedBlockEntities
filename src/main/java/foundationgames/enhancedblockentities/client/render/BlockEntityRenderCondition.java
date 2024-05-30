@@ -10,18 +10,18 @@ import net.minecraft.util.math.Vec3d;
 
 @FunctionalInterface
 public interface BlockEntityRenderCondition {
-    BlockEntityRenderCondition STATE_GREATER_THAN_1 = entity -> {
+    BlockEntityRenderCondition NON_ZERO_STATE = entity -> {
         if(entity instanceof ModelStateHolder stateHolder) {
             return stateHolder.getModelState() > 0;
         }
         return false;
     };
 
-    BlockEntityRenderCondition CHEST = STATE_GREATER_THAN_1;
+    BlockEntityRenderCondition CHEST = NON_ZERO_STATE;
 
-    BlockEntityRenderCondition BELL = STATE_GREATER_THAN_1;
+    BlockEntityRenderCondition BELL = NON_ZERO_STATE;
 
-    BlockEntityRenderCondition SHULKER_BOX = STATE_GREATER_THAN_1;
+    BlockEntityRenderCondition SHULKER_BOX = NON_ZERO_STATE;
 
     BlockEntityRenderCondition SIGN = entity -> {
         EBEConfig config = EnhancedBlockEntities.CONFIG;
@@ -47,6 +47,8 @@ public interface BlockEntityRenderCondition {
         }
         return false;
     };
+
+    BlockEntityRenderCondition DECORATED_POT = NON_ZERO_STATE;
 
     BlockEntityRenderCondition NEVER = entity -> false;
 

@@ -10,6 +10,7 @@ import foundationgames.enhancedblockentities.client.render.BlockEntityRenderCond
 import foundationgames.enhancedblockentities.client.render.BlockEntityRendererOverride;
 import foundationgames.enhancedblockentities.client.render.entity.BellBlockEntityRendererOverride;
 import foundationgames.enhancedblockentities.client.render.entity.ChestBlockEntityRendererOverride;
+import foundationgames.enhancedblockentities.client.render.entity.DecoratedPotBlockEntityRendererOverride;
 import foundationgames.enhancedblockentities.client.render.entity.ShulkerBoxBlockEntityRendererOverride;
 import foundationgames.enhancedblockentities.client.render.entity.SignBlockEntityRendererOverride;
 import foundationgames.enhancedblockentities.client.resource.EBEPack;
@@ -441,6 +442,7 @@ public enum EBESetup {;
     }
 
     public static void setupDecoratedPots() {
-        EnhancedBlockEntityRegistry.register(Blocks.DECORATED_POT, BlockEntityType.DECORATED_POT, BlockEntityRenderCondition.NEVER, BlockEntityRendererOverride.NO_OP);
+        EnhancedBlockEntityRegistry.register(Blocks.DECORATED_POT, BlockEntityType.DECORATED_POT,
+                BlockEntityRenderCondition.DECORATED_POT, new DecoratedPotBlockEntityRendererOverride());
     }
 }
