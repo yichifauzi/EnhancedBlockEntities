@@ -24,9 +24,6 @@
     ],
     "modmenu": [
       "foundationgames.enhancedblockentities.config.gui.EBEModMenuPlugin"
-    ],
-    "dashloader": [
-      "foundationgames.enhancedblockentities.compat.dashloader.EBEDashLoader"
     ]
   },
   "mixins": [
@@ -36,7 +33,7 @@
   "depends": {
     "fabricloader": ">=0.7.4",
     "fabric-api": "*",
-    "minecraft": ">=1.20.2"
+    "minecraft": ">=1.20.3"
   },
   "breaks": {
     "optifabric": "*"
@@ -45,9 +42,6 @@
   "accessWidener": "enhancedblockentities.accesswidener",
 
   "custom": {
-    "dashloader:dashobject": [
-      "foundationgames.enhancedblockentities.compat.dashloader.DashDynamicBakedModel"
-    ],
     "modmenu": {
       "links": {
         "modmenu.discord": "https://discord.gg/7Aw3y4RtY9"

@@ -2,6 +2,7 @@ package foundationgames.enhancedblockentities.config.gui.option;
 
 import foundationgames.enhancedblockentities.ReloadType;
 import foundationgames.enhancedblockentities.util.GuiUtil;
+import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
@@ -24,7 +25,7 @@ public final class EBEOption {
     private final int defaultValue;
 
     private int selected;
-    private MutableText tooltip = null;
+    private Tooltip tooltip = null;
     private Text text = null;
 
     public EBEOption(String key, List<String> values, int defaultValue, boolean hasValueComments, TextPalette palette, ReloadType reloadType) {
@@ -60,10 +61,10 @@ public final class EBEOption {
         return text;
     }
 
-    public MutableText getTooltip() {
+    public Tooltip getTooltip() {
         if (tooltip == null) {
-            if (hasValueComments) tooltip = Text.translatable(String.format("option.ebe.%s.valueComment.%s", key, getValue())).append(NEWLINE).append(comment.copyContentOnly());
-            else tooltip = comment.copyContentOnly();
+            if (hasValueComments) tooltip = Tooltip.of(Text.translatable(String.format("option.ebe.%s.valueComment.%s", key, getValue())).append(NEWLINE).append(comment.copyContentOnly()));
+            else tooltip = Tooltip.of(comment.copyContentOnly());
         }
         return tooltip;
     }
