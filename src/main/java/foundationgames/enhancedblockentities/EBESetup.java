@@ -1,7 +1,7 @@
 package foundationgames.enhancedblockentities;
 
 import foundationgames.enhancedblockentities.client.model.DynamicModelEffects;
-import foundationgames.enhancedblockentities.client.model.DynamicModelProvider;
+import foundationgames.enhancedblockentities.client.model.DynamicModelProvidingPlugin;
 import foundationgames.enhancedblockentities.client.model.DynamicUnbakedModel;
 import foundationgames.enhancedblockentities.client.model.ModelIdentifiers;
 import foundationgames.enhancedblockentities.client.model.ModelSelector;
@@ -19,7 +19,7 @@ import foundationgames.enhancedblockentities.util.ResourceUtil;
 import foundationgames.enhancedblockentities.util.duck.BakedModelManagerAccess;
 import net.devtech.arrp.json.models.JModel;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
-import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
+import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ShulkerBoxBlock;
@@ -157,7 +157,7 @@ public enum EBESetup {;
     }
 
     public static void setupResourceProviders() {
-        ModelLoadingRegistry.INSTANCE.registerResourceProvider(manager -> new DynamicModelProvider(
+        ModelLoadingPlugin.register(new DynamicModelProvidingPlugin(
                 new Identifier("builtin", "chest_center"),
                 () -> new DynamicUnbakedModel(
                         new Identifier[] {
@@ -170,7 +170,7 @@ public enum EBESetup {;
                         DynamicModelEffects.CHEST
                 )
         ));
-        ModelLoadingRegistry.INSTANCE.registerResourceProvider(manager -> new DynamicModelProvider(
+        ModelLoadingPlugin.register(new DynamicModelProvidingPlugin(
                 new Identifier("builtin", "chest_left"),
                 () -> new DynamicUnbakedModel(
                         new Identifier[] {
@@ -184,7 +184,7 @@ public enum EBESetup {;
                 )
         ));
 
-        ModelLoadingRegistry.INSTANCE.registerResourceProvider(manager -> new DynamicModelProvider(
+        ModelLoadingPlugin.register(new DynamicModelProvidingPlugin(
                 new Identifier("builtin", "chest_right"),
                 () -> new DynamicUnbakedModel(
                         new Identifier[] {
@@ -197,7 +197,7 @@ public enum EBESetup {;
                         DynamicModelEffects.CHEST
                 )
         ));
-        ModelLoadingRegistry.INSTANCE.registerResourceProvider(manager -> new DynamicModelProvider(
+        ModelLoadingPlugin.register(new DynamicModelProvidingPlugin(
                 new Identifier("builtin", "trapped_chest_center"),
                 () -> new DynamicUnbakedModel(
                         new Identifier[] {
@@ -210,7 +210,7 @@ public enum EBESetup {;
                         DynamicModelEffects.CHEST
                 )
         ));
-        ModelLoadingRegistry.INSTANCE.registerResourceProvider(manager -> new DynamicModelProvider(
+        ModelLoadingPlugin.register(new DynamicModelProvidingPlugin(
                 new Identifier("builtin", "trapped_chest_left"),
                 () -> new DynamicUnbakedModel(
                         new Identifier[] {
@@ -223,7 +223,7 @@ public enum EBESetup {;
                         DynamicModelEffects.CHEST
                 )
         ));
-        ModelLoadingRegistry.INSTANCE.registerResourceProvider(manager -> new DynamicModelProvider(
+        ModelLoadingPlugin.register(new DynamicModelProvidingPlugin(
                 new Identifier("builtin", "trapped_chest_right"),
                 () -> new DynamicUnbakedModel(
                         new Identifier[] {
@@ -236,7 +236,7 @@ public enum EBESetup {;
                         DynamicModelEffects.CHEST
                 )
         ));
-        ModelLoadingRegistry.INSTANCE.registerResourceProvider(manager -> new DynamicModelProvider(
+        ModelLoadingPlugin.register(new DynamicModelProvidingPlugin(
                 new Identifier("builtin", "ender_chest_center"),
                 () -> new DynamicUnbakedModel(
                         new Identifier[] {
@@ -248,7 +248,7 @@ public enum EBESetup {;
                 )
         ));
 
-        ModelLoadingRegistry.INSTANCE.registerResourceProvider(manager -> new DynamicModelProvider(
+        ModelLoadingPlugin.register(new DynamicModelProvidingPlugin(
                 new Identifier("builtin", "bell_between_walls"),
                 () -> new DynamicUnbakedModel(
                         new Identifier[] {
@@ -259,7 +259,7 @@ public enum EBESetup {;
                         DynamicModelEffects.BELL
                 )
         ));
-        ModelLoadingRegistry.INSTANCE.registerResourceProvider(manager -> new DynamicModelProvider(
+        ModelLoadingPlugin.register(new DynamicModelProvidingPlugin(
                 new Identifier("builtin", "bell_ceiling"),
                 () -> new DynamicUnbakedModel(
                         new Identifier[] {
@@ -270,7 +270,7 @@ public enum EBESetup {;
                         DynamicModelEffects.BELL
                 )
         ));
-        ModelLoadingRegistry.INSTANCE.registerResourceProvider(manager -> new DynamicModelProvider(
+        ModelLoadingPlugin.register(new DynamicModelProvidingPlugin(
                 new Identifier("builtin", "bell_floor"),
                 () -> new DynamicUnbakedModel(
                         new Identifier[] {
@@ -281,7 +281,7 @@ public enum EBESetup {;
                         DynamicModelEffects.BELL
                 )
         ));
-        ModelLoadingRegistry.INSTANCE.registerResourceProvider(manager -> new DynamicModelProvider(
+        ModelLoadingPlugin.register(new DynamicModelProvidingPlugin(
                 new Identifier("builtin", "bell_wall"),
                 () -> new DynamicUnbakedModel(
                         new Identifier[] {
@@ -293,7 +293,7 @@ public enum EBESetup {;
                 )
         ));
         for (DyeColor color : EBEUtil.DEFAULTED_DYE_COLORS) {
-            ModelLoadingRegistry.INSTANCE.registerResourceProvider(manager -> new DynamicModelProvider(
+            ModelLoadingPlugin.register(new DynamicModelProvidingPlugin(
                     new Identifier("builtin", color != null ? color.getName()+"_shulker_box" : "shulker_box"),
                     () -> new DynamicUnbakedModel(
                             new Identifier[] {
@@ -307,7 +307,7 @@ public enum EBESetup {;
         }
 
         DecoratedPotModelSelector decoratedPotSelector = new DecoratedPotModelSelector();
-        ModelLoadingRegistry.INSTANCE.registerResourceProvider(manager -> new DynamicModelProvider(
+        ModelLoadingPlugin.register(new DynamicModelProvidingPlugin(
                 new Identifier("builtin", "decorated_pot"),
                 () -> new DynamicUnbakedModel(
                         decoratedPotSelector.createModelIDs(),

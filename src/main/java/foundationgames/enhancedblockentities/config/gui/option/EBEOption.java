@@ -4,7 +4,6 @@ import foundationgames.enhancedblockentities.ReloadType;
 import foundationgames.enhancedblockentities.util.GuiUtil;
 import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.resource.language.I18n;
-import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.MathHelper;
 

@@ -3,7 +3,7 @@ package foundationgames.enhancedblockentities.client.model;
 import foundationgames.enhancedblockentities.EnhancedBlockEntities;
 import foundationgames.enhancedblockentities.config.EBEConfig;
 import foundationgames.enhancedblockentities.util.EBEUtil;
-import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
+import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.DyeColor;
@@ -11,10 +11,14 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Predicate;
 
-public final class ModelIdentifiers {
+public final class ModelIdentifiers implements ModelLoadingPlugin {
+    private static final Map<Predicate<EBEConfig>, Set<Identifier>> modelLoaders = new HashMap<>();
+
     public static final Predicate<EBEConfig> CHEST_PREDICATE = c -> c.renderEnhancedChests;
     public static final Predicate<EBEConfig> BELL_PREDICATE = c -> c.renderEnhancedBells;
     public static final Predicate<EBEConfig> SHULKER_BOX_PREDICATE = c -> c.renderEnhancedShulkerBoxes;
@@ -84,6 +88,7 @@ public final class ModelIdentifiers {
     }
 
     public static void init() {
+        ModelLoadingPlugin.register(new ModelIdentifiers());
     }
 
     public static void refreshPotteryPatterns() {
@@ -107,9 +112,18 @@ public final class ModelIdentifiers {
 
     private static Identifier of(String id, Predicate<EBEConfig> condition) {
         Identifier idf = new Identifier(id);
-        ModelLoadingRegistry.INSTANCE.registerModelProvider((resourceManager, consumer) -> {
-            if(condition.test(EnhancedBlockEntities.CONFIG)) consumer.accept(idf);
-        });
+        modelLoaders.computeIfAbsent(condition, k -> new HashSet<>()).add(idf);
         return idf;
+    }
+
+    @Override
+    public void onInitializeModelLoader(Context ctx) {
+        var config = EnhancedBlockEntities.CONFIG;
+
+        for (var entry : modelLoaders.entrySet()) {
+            if (entry.getKey().test(config)) {
+                ctx.addModels(entry.getValue());
+            }
+        }
     }
 }
