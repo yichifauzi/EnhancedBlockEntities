@@ -20,14 +20,13 @@ public enum WorldUtil implements ClientTickEvents.EndWorldTick {
     private static final Map<RegistryKey<World>, Long2ObjectMap<Runnable>> TIMED_TASKS = new HashMap<>();
 
     public static void rebuildChunk(World world, BlockPos pos) {
-        var bState = world.getBlockState(pos);
-        MinecraftClient.getInstance().worldRenderer.updateBlock(world, pos, bState, bState, 8);
+        var state = world.getBlockState(pos);
+        MinecraftClient.getInstance().worldRenderer.updateBlock(world, pos, state, state, 8);
     }
 
     public static void rebuildChunkAndThen(World world, BlockPos pos, Runnable action) {
-        var state = world.getBlockState(pos);
         CHUNK_UPDATE_TASKS.computeIfAbsent(ChunkSectionPos.from(pos), k -> new ExecutableRunnableHashSet()).add(action);
-        MinecraftClient.getInstance().worldRenderer.updateBlock(world, pos, state, state, 8);
+        rebuildChunk(world, pos);
     }
 
     public static void scheduleTimed(World world, long time, Runnable action) {

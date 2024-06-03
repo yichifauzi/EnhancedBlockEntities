@@ -24,7 +24,7 @@ public class DynamicModelProvidingPlugin implements ModelLoadingPlugin, ModelRes
 
     @Override
     public @Nullable UnbakedModel resolveModel(ModelResolver.Context ctx) {
-        if(ctx.id().equals(this.id)) return this.model.get();
+        if (ctx.id().equals(this.id)) return this.model.get();
         return null;
     }
 }

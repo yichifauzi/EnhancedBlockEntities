@@ -49,32 +49,32 @@ public final class EnhancedBlockEntities implements ClientModInitializer {
         ResourceUtil.resetBasePack();
         ResourceUtil.resetTopLevelPack();
 
-        if(CONFIG.renderEnhancedChests) {
+        if (CONFIG.renderEnhancedChests) {
             EBESetup.setupChests();
             EBESetup.setupRRPChests();
         }
 
-        if(CONFIG.renderEnhancedSigns) {
+        if (CONFIG.renderEnhancedSigns) {
             EBESetup.setupSigns();
             EBESetup.setupRRPSigns();
         }
 
-        if(CONFIG.renderEnhancedBells) {
+        if (CONFIG.renderEnhancedBells) {
             EBESetup.setupBells();
             EBESetup.setupRRPBells();
         }
 
-        if(CONFIG.renderEnhancedBeds) {
+        if (CONFIG.renderEnhancedBeds) {
             EBESetup.setupBeds();
             EBESetup.setupRRPBeds();
         }
 
-        if(CONFIG.renderEnhancedShulkerBoxes) {
+        if (CONFIG.renderEnhancedShulkerBoxes) {
             EBESetup.setupShulkerBoxes();
             EBESetup.setupRRPShulkerBoxes();
         }
 
-        if(CONFIG.renderEnhancedDecoratedPots) {
+        if (CONFIG.renderEnhancedDecoratedPots) {
             EBESetup.setupDecoratedPots();
             EBESetup.setupRRPDecoratedPots();
         }

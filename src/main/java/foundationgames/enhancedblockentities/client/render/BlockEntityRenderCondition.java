@@ -11,7 +11,7 @@ import net.minecraft.util.math.Vec3d;
 @FunctionalInterface
 public interface BlockEntityRenderCondition {
     BlockEntityRenderCondition NON_ZERO_STATE = entity -> {
-        if(entity instanceof AppearanceStateHolder stateHolder) {
+        if (entity instanceof AppearanceStateHolder stateHolder) {
             return stateHolder.getRenderState() > 0;
         }
         return false;
