@@ -1,41 +1,37 @@
 package foundationgames.enhancedblockentities.mixin;
 
 import foundationgames.enhancedblockentities.util.WorldUtil;
+import foundationgames.enhancedblockentities.util.duck.ChunkRebuildTaskAccess;
 import net.minecraft.client.render.WorldRenderer;
+import net.minecraft.client.render.chunk.ChunkBuilder;
 import net.minecraft.util.math.ChunkSectionPos;
-import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(WorldRenderer.class)
 public class WorldRendererMixin {
-    private ChunkSectionPos enhanced_bes$updatingChunk = null;
 
     @ModifyVariable(method = "updateChunks",
-            at = @At(value = "INVOKE_ASSIGN", shift = At.Shift.AFTER, target = "Lnet/minecraft/util/math/ChunkSectionPos;from(Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/util/math/ChunkSectionPos;"),
-            index = 8)
-    private ChunkSectionPos enhanced_bes$cacheUpdatedChunkPos(ChunkSectionPos c) {
-        enhanced_bes$updatingChunk = c;
-        return c;
-    }
+            at = @At(value = "INVOKE", shift = At.Shift.BEFORE, ordinal = 0, target = "Lnet/minecraft/client/option/SimpleOption;getValue()Ljava/lang/Object;"),
+            index = 7)
+    private ChunkBuilder.BuiltChunk enhanced_bes$addPostRebuildTask(ChunkBuilder.BuiltChunk chunk) {
+        if (WorldUtil.CHUNK_UPDATE_TASKS.size() > 0) {
+            var pos = ChunkSectionPos.from(chunk.getOrigin());
 
-    /*  X------------------------updateChunks(Camera camera)-------------------------X
-        |---> HERE <---                                                              |
-        |   if (bl) {                                                                |
-        |       this.client.getProfiler().push("build_near_sync");                   |
-        |       this.chunkBuilder.rebuild(builtChunk, chunkRendererRegionBuilder);   |
-        X----------------------------[END: 5 LINES DOWN]-----------------------------X  */
-    @ModifyVariable(method = "updateChunks", at = @At(value = "JUMP", shift = At.Shift.BEFORE, opcode = Opcodes.IFEQ, ordinal = 4), index = 9)
-    private boolean enhanced_bes$forceSynchronousChunkRebuild(boolean old) {
-        if (enhanced_bes$updatingChunk != null && WorldUtil.FORCE_SYNCHRONOUS_CHUNK_REBUILD.contains(enhanced_bes$updatingChunk)) {
-            WorldUtil.FORCE_SYNCHRONOUS_CHUNK_REBUILD.remove(enhanced_bes$updatingChunk);
-
-            enhanced_bes$updatingChunk = null;
-            return true;
+            if (WorldUtil.CHUNK_UPDATE_TASKS.containsKey(pos)) {
+                var task = WorldUtil.CHUNK_UPDATE_TASKS.remove(pos);
+                ((ChunkRebuildTaskAccess) chunk).enhanced_bes$setTaskAfterRebuild(task);
+            }
         }
 
-        enhanced_bes$updatingChunk = null;
-        return old;
+        return chunk;
+    }
+
+    @Inject(method = "addBuiltChunk", at = @At("HEAD"))
+    private void enhanced_bes$runPostRebuildTask(ChunkBuilder.BuiltChunk chunk, CallbackInfo ci) {
+        ((ChunkRebuildTaskAccess) chunk).enhanced_bes$runAfterRebuildTask();
     }
 }

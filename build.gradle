@@ -32,6 +32,9 @@ dependencies {
 	// Mod Menu because config screen access from another place
 	modApi "com.terraformersmc:modmenu:${project.modmenu_version}"
 
+	// Sodium for compatibility
+	modCompileOnlyApi "maven.modrinth:sodium:${project.sodium_version}"
+
 	// a bit less load time
 	modLocalRuntime "maven.modrinth:lazydfu:0.1.3"
 }

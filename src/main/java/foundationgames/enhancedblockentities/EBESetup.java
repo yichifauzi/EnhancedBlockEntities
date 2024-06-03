@@ -332,12 +332,12 @@ public enum EBESetup {;
                 new ChestBlockEntityRendererOverride(() -> {
                     BakedModelManagerAccess manager = (BakedModelManagerAccess) MinecraftClient.getInstance().getBakedModelManager();
                     return new BakedModel[] {
-                            manager.getModel(ModelIdentifiers.CHEST_CENTER_LID),
-                            manager.getModel(ModelIdentifiers.CHEST_LEFT_LID),
-                            manager.getModel(ModelIdentifiers.CHEST_RIGHT_LID),
-                            manager.getModel(ModelIdentifiers.CHRISTMAS_CHEST_CENTER_LID),
-                            manager.getModel(ModelIdentifiers.CHRISTMAS_CHEST_LEFT_LID),
-                            manager.getModel(ModelIdentifiers.CHRISTMAS_CHEST_RIGHT_LID)
+                            manager.enhanced_bes$getModel(ModelIdentifiers.CHEST_CENTER_LID),
+                            manager.enhanced_bes$getModel(ModelIdentifiers.CHEST_LEFT_LID),
+                            manager.enhanced_bes$getModel(ModelIdentifiers.CHEST_RIGHT_LID),
+                            manager.enhanced_bes$getModel(ModelIdentifiers.CHRISTMAS_CHEST_CENTER_LID),
+                            manager.enhanced_bes$getModel(ModelIdentifiers.CHRISTMAS_CHEST_LEFT_LID),
+                            manager.enhanced_bes$getModel(ModelIdentifiers.CHRISTMAS_CHEST_RIGHT_LID)
                     };
                 }, christmasChestSelector)
         );
@@ -345,19 +345,19 @@ public enum EBESetup {;
                 new ChestBlockEntityRendererOverride(() -> {
                     BakedModelManagerAccess manager = (BakedModelManagerAccess)MinecraftClient.getInstance().getBakedModelManager();
                     return new BakedModel[] {
-                            manager.getModel(ModelIdentifiers.TRAPPED_CHEST_CENTER_LID),
-                            manager.getModel(ModelIdentifiers.TRAPPED_CHEST_LEFT_LID),
-                            manager.getModel(ModelIdentifiers.TRAPPED_CHEST_RIGHT_LID),
-                            manager.getModel(ModelIdentifiers.CHRISTMAS_CHEST_CENTER_LID),
-                            manager.getModel(ModelIdentifiers.CHRISTMAS_CHEST_LEFT_LID),
-                            manager.getModel(ModelIdentifiers.CHRISTMAS_CHEST_RIGHT_LID)
+                            manager.enhanced_bes$getModel(ModelIdentifiers.TRAPPED_CHEST_CENTER_LID),
+                            manager.enhanced_bes$getModel(ModelIdentifiers.TRAPPED_CHEST_LEFT_LID),
+                            manager.enhanced_bes$getModel(ModelIdentifiers.TRAPPED_CHEST_RIGHT_LID),
+                            manager.enhanced_bes$getModel(ModelIdentifiers.CHRISTMAS_CHEST_CENTER_LID),
+                            manager.enhanced_bes$getModel(ModelIdentifiers.CHRISTMAS_CHEST_LEFT_LID),
+                            manager.enhanced_bes$getModel(ModelIdentifiers.CHRISTMAS_CHEST_RIGHT_LID)
                     };
                 }, christmasChestSelector)
         );
         EnhancedBlockEntityRegistry.register(Blocks.ENDER_CHEST, BlockEntityType.ENDER_CHEST, BlockEntityRenderCondition.CHEST,
                 new ChestBlockEntityRendererOverride(() -> {
                     BakedModelManagerAccess manager = (BakedModelManagerAccess)MinecraftClient.getInstance().getBakedModelManager();
-                    return new BakedModel[] { manager.getModel(ModelIdentifiers.ENDER_CHEST_CENTER_LID) };
+                    return new BakedModel[] { manager.enhanced_bes$getModel(ModelIdentifiers.ENDER_CHEST_CENTER_LID) };
                 }, entity -> 0)
         );
     }
@@ -434,7 +434,7 @@ public enum EBESetup {;
                     new ShulkerBoxBlockEntityRendererOverride((map) -> {
                         var models = (BakedModelManagerAccess) MinecraftClient.getInstance().getBakedModelManager();
                         for (DyeColor dc : EBEUtil.DEFAULTED_DYE_COLORS) {
-                            map.put(dc, models.getModel(ModelIdentifiers.SHULKER_BOX_LIDS.get(dc)));
+                            map.put(dc, models.enhanced_bes$getModel(ModelIdentifiers.SHULKER_BOX_LIDS.get(dc)));
                         }
                     })
             );

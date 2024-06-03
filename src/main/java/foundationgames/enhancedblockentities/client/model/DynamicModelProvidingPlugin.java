@@ -1,13 +1,14 @@
 package foundationgames.enhancedblockentities.client.model;
 
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
-import net.fabricmc.fabric.api.client.model.loading.v1.ModelModifier;
+import net.fabricmc.fabric.api.client.model.loading.v1.ModelResolver;
 import net.minecraft.client.render.model.UnbakedModel;
 import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
-public class DynamicModelProvidingPlugin implements ModelLoadingPlugin, ModelModifier.BeforeBake {
+public class DynamicModelProvidingPlugin implements ModelLoadingPlugin, ModelResolver {
     private final Supplier<DynamicUnbakedModel> model;
     private final Identifier id;
 
@@ -18,12 +19,12 @@ public class DynamicModelProvidingPlugin implements ModelLoadingPlugin, ModelMod
 
     @Override
     public void onInitializeModelLoader(ModelLoadingPlugin.Context ctx) {
-        ctx.modifyModelBeforeBake().register(this);
+        ctx.resolveModel().register(this);
     }
 
     @Override
-    public UnbakedModel modifyModelBeforeBake(UnbakedModel model, ModelModifier.BeforeBake.Context ctx) {
+    public @Nullable UnbakedModel resolveModel(ModelResolver.Context ctx) {
         if(ctx.id().equals(this.id)) return this.model.get();
-        return model;
+        return null;
     }
 }

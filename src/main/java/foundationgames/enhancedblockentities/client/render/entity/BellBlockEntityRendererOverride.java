@@ -50,7 +50,7 @@ public class BellBlockEntityRendererOverride extends BlockEntityRendererOverride
 
     private BakedModel getBellModel() {
         BakedModelManagerAccess manager = (BakedModelManagerAccess)MinecraftClient.getInstance().getBakedModelManager();
-        return manager.getModel(ModelIdentifiers.BELL_BODY);
+        return manager.enhanced_bes$getModel(ModelIdentifiers.BELL_BODY);
     }
 
     @Override

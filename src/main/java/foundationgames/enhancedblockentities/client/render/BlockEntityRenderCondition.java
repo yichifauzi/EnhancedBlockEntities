@@ -3,7 +3,7 @@ package foundationgames.enhancedblockentities.client.render;
 import foundationgames.enhancedblockentities.EnhancedBlockEntities;
 import foundationgames.enhancedblockentities.config.EBEConfig;
 import foundationgames.enhancedblockentities.mixin.SignBlockEntityRenderAccessor;
-import foundationgames.enhancedblockentities.util.duck.ModelStateHolder;
+import foundationgames.enhancedblockentities.util.duck.AppearanceStateHolder;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.Vec3d;
@@ -11,8 +11,8 @@ import net.minecraft.util.math.Vec3d;
 @FunctionalInterface
 public interface BlockEntityRenderCondition {
     BlockEntityRenderCondition NON_ZERO_STATE = entity -> {
-        if(entity instanceof ModelStateHolder stateHolder) {
-            return stateHolder.getModelState() > 0;
+        if(entity instanceof AppearanceStateHolder stateHolder) {
+            return stateHolder.getRenderState() > 0;
         }
         return false;
     };

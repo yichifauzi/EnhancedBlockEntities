@@ -2,7 +2,7 @@ package foundationgames.enhancedblockentities.client.model.misc;
 
 import foundationgames.enhancedblockentities.client.model.ModelIdentifiers;
 import foundationgames.enhancedblockentities.client.model.ModelSelector;
-import foundationgames.enhancedblockentities.util.duck.ModelStateHolder;
+import foundationgames.enhancedblockentities.util.duck.AppearanceStateHolder;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.DecoratedPotPatterns;
@@ -61,7 +61,7 @@ public class DecoratedPotModelSelector extends ModelSelector {
 
         indices[0] = IDX_BASE_POT;
         if (view.getBlockEntity(pos) instanceof DecoratedPotBlockEntity pot) {
-            if (pot instanceof ModelStateHolder ms && ms.getModelState() > 0) {
+            if (pot instanceof AppearanceStateHolder ms && ms.getModelState() > 0) {
                 Arrays.fill(indices, IDX_EMPTY);
                 return;
             }

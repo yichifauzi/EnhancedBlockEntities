@@ -8,6 +8,7 @@
     "BakedModelManagerMixin",
     "BellBlockEntityMixin",
     "BlockEntityRenderDispatcherMixin",
+    "BuiltChunkMixin",
     "BuiltinModelItemRendererMixin",
     "ChestBlockEntityMixin",
     "DecoratedPotBlockEntityMixin",
@@ -17,7 +18,9 @@
     "SignBlockEntityRenderAccessor",
     "SignEditScreenMixin",
     "VideoOptionsScreenMixin",
-    "WorldRendererMixin"
+    "WorldRendererMixin",
+    "compat.sodium.RenderSectionManagerMixin",
+    "compat.sodium.RenderSectionMixin"
   ],
   "injectors": {
     "defaultRequire": 1

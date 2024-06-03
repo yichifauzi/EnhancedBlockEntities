@@ -23,7 +23,7 @@ public class BakedModelManagerMixin implements BakedModelManagerAccess {
     @Shadow private Map<Identifier, BakedModel> models;
 
     @Override
-    public BakedModel getModel(Identifier id) {
+    public BakedModel enhanced_bes$getModel(Identifier id) {
         return this.models.get(id);
     }
 
