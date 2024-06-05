@@ -4,6 +4,7 @@ import foundationgames.enhancedblockentities.util.WorldUtil;
 import foundationgames.enhancedblockentities.util.duck.AppearanceStateHolder;
 import net.minecraft.block.entity.DecoratedPotBlockEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.RegistryWrapper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -17,7 +18,7 @@ public class DecoratedPotBlockEntityMixin implements AppearanceStateHolder {
     @Unique private int enhanced_bes$renderState = 0;
 
     @Inject(method = "readNbt", at = @At("TAIL"))
-    private void enhanced_bes$updateChunkOnPatternsLoaded(NbtCompound nbt, CallbackInfo ci) {
+    private void enhanced_bes$updateChunkOnPatternsLoaded(NbtCompound nbt, RegistryWrapper.WrapperLookup rwl, CallbackInfo ci) {
         var self = (DecoratedPotBlockEntity)(Object)this;
 
         if (self.getWorld() != null && self.getWorld().isClient()) {

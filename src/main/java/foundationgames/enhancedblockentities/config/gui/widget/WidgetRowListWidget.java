@@ -7,7 +7,6 @@ import net.minecraft.client.gui.Selectable;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.gui.widget.ElementListWidget;
 import net.minecraft.client.gui.widget.GridWidget;
-import net.minecraft.client.render.RenderLayer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,16 +48,12 @@ public class WidgetRowListWidget extends ElementListWidget<WidgetRowListWidget.E
     }
 
     @Override
-    protected int getScrollbarPositionX() {
+    protected int getScrollbarX() {
         return this.width - 6;
     }
 
     @Override
-    public void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {
-        super.renderWidget(context, mouseX, mouseY, delta);
-
-        context.fillGradient(RenderLayer.getGuiOverlay(), this.getX(), this.getY(), this.getRight(), this.getY() + 4, -16777216, 0, 0);
-        context.fillGradient(RenderLayer.getGuiOverlay(), this.getX(), this.getBottom() - 4, this.getRight(), this.getBottom(), 0, -16777216, 0);
+    protected void drawMenuListBackground(DrawContext context) {
     }
 
     public static class Entry extends ElementListWidget.Entry<Entry> {

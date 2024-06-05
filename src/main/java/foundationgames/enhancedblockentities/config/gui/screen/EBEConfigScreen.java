@@ -1,7 +1,6 @@
 package foundationgames.enhancedblockentities.config.gui.screen;
 
 import com.google.common.collect.ImmutableList;
-import com.mojang.blaze3d.systems.RenderSystem;
 import foundationgames.enhancedblockentities.EnhancedBlockEntities;
 import foundationgames.enhancedblockentities.ReloadType;
 import foundationgames.enhancedblockentities.config.EBEConfig;
@@ -12,13 +11,10 @@ import foundationgames.enhancedblockentities.config.gui.widget.WidgetRowListWidg
 import foundationgames.enhancedblockentities.util.EBEUtil;
 import foundationgames.enhancedblockentities.util.GuiUtil;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.RotatingCubeMapRenderer;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.GridWidget;
-import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
@@ -39,7 +35,7 @@ public class EBEConfigScreen extends Screen {
     private static final ImmutableList<String> ALLOWED_FORCED_DISABLED = ImmutableList.of("allowed", "forced", "disabled");
     private static final ImmutableList<String> SIGN_TEXT_OPTIONS = ImmutableList.of("smart", "all", "most", "some", "few");
 
-    private static final Text HOLD_SHIFT = Text.translatable("text.ebe.descriptions").formatted(Formatting.DARK_GRAY, Formatting.ITALIC);
+    private static final Text HOLD_SHIFT = Text.translatable("text.ebe.descriptions").formatted(Formatting.GRAY, Formatting.ITALIC);
     private static final Text CHEST_OPTIONS_TITLE = Text.translatable("text.ebe.chest_options");
     private static final Text SIGN_OPTIONS_TITLE = Text.translatable("text.ebe.sign_options");
     private static final Text BELL_OPTIONS_TITLE = Text.translatable("text.ebe.bell_options");
@@ -51,7 +47,6 @@ public class EBEConfigScreen extends Screen {
     private static final Text DUMP_LABEL = Text.translatable("option.ebe.dump");
 
     private final Text dumpTooltip = GuiUtil.shorten(I18n.translate("option.ebe.dump.comment"), 20);
-    private final RotatingCubeMapRenderer background = new RotatingCubeMapRenderer(TitleScreen.PANORAMA_CUBE_MAP);
 
     public EBEConfigScreen(Screen screen) {
         super(Text.translatable("screen.ebe.config"));
@@ -63,8 +58,8 @@ public class EBEConfigScreen extends Screen {
         super.init();
 
         this.optionsWidget = new WidgetRowListWidget(this.client, this.width, this.height - 69, 34, 316, 20);
+        //this.optionsWidget.bac
         this.options.clear();
-        this.optionsWidget.setRenderBackground(false);
 
         addOptions();
         this.addDrawableChild(optionsWidget);
@@ -94,30 +89,13 @@ public class EBEConfigScreen extends Screen {
     }
 
     @Override
-    public void renderBackgroundTexture(DrawContext context) {
-    }
-
-    @Override
-    public void renderInGameBackground(DrawContext context) {
-    }
-
-    private void drawDirtTexture(DrawContext context, int x, int y, int w, int h) {
-        context.setShaderColor(0.25F, 0.25F, 0.25F, 1.0F);
-        context.drawTexture(OPTIONS_BACKGROUND_TEXTURE, x, y, 0, 0.0F, 0.0F, w, h, 32, 32);
-        context.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+    protected void renderDarkening(DrawContext context) {
+        renderDarkening(context, 0, 0, this.width, 34);
+        renderDarkening(context, 0, this.height - 35, this.width, 35);
     }
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        if (this.client.world == null) {
-            this.background.render(delta, 1);
-            RenderSystem.setShader(GameRenderer::getPositionTexProgram);
-        }
-
-        context.fillGradient(0, 0, width, height, 0x4F141414, 0x4F141414);
-        drawDirtTexture(context, 0, 0, this.width, 34);
-        drawDirtTexture(context, 0, this.height - 35, this.width, 35);
-
         super.render(context, mouseX, mouseY, delta);
 
         context.drawCenteredTextWithShadow(this.textRenderer, this.title, (int)(this.width * 0.5), 8, 0xFFFFFF);

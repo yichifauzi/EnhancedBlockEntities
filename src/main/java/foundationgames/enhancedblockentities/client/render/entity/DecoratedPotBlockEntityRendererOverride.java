@@ -87,13 +87,21 @@ public class DecoratedPotBlockEntityRendererOverride extends BlockEntityRenderer
             EBEUtil.renderBakedModel(vertexConsumers, blockEntity.getCachedState(), matrices, this.baseModel, light, overlay);
 
             EBEUtil.renderBakedModel(vertexConsumers, blockEntity.getCachedState(), matrices,
-                    this.potPatternModels.get(DecoratedPotPatterns.fromSherd(sherds.back()))[0], light, overlay);
+                    this.potPatternModels.get(
+                            sherds.back().map(DecoratedPotPatterns::fromSherd).orElse(DecoratedPotPatterns.DECORATED_POT_SIDE_KEY)
+                    )[0], light, overlay);
             EBEUtil.renderBakedModel(vertexConsumers, blockEntity.getCachedState(), matrices,
-                    this.potPatternModels.get(DecoratedPotPatterns.fromSherd(sherds.left()))[1], light, overlay);
+                    this.potPatternModels.get(
+                            sherds.left().map(DecoratedPotPatterns::fromSherd).orElse(DecoratedPotPatterns.DECORATED_POT_SIDE_KEY)
+                    )[1], light, overlay);
             EBEUtil.renderBakedModel(vertexConsumers, blockEntity.getCachedState(), matrices,
-                    this.potPatternModels.get(DecoratedPotPatterns.fromSherd(sherds.right()))[2], light, overlay);
+                    this.potPatternModels.get(
+                            sherds.right().map(DecoratedPotPatterns::fromSherd).orElse(DecoratedPotPatterns.DECORATED_POT_SIDE_KEY)
+                    )[2], light, overlay);
             EBEUtil.renderBakedModel(vertexConsumers, blockEntity.getCachedState(), matrices,
-                    this.potPatternModels.get(DecoratedPotPatterns.fromSherd(sherds.front()))[3], light, overlay);
+                    this.potPatternModels.get(
+                            sherds.front().map(DecoratedPotPatterns::fromSherd).orElse(DecoratedPotPatterns.DECORATED_POT_SIDE_KEY)
+                    )[3], light, overlay);
 
             matrices.pop();
         }

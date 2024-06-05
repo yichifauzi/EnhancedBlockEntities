@@ -20,6 +20,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 public class DecoratedPotModelSelector extends ModelSelector {
@@ -81,7 +82,7 @@ public class DecoratedPotModelSelector extends ModelSelector {
         }
     }
 
-    private int getPatternIndex(Item sherd, int max) {
-        return MathHelper.clamp(this.potteryPatterns.indexOf(DecoratedPotPatterns.fromSherd(sherd)), 0, max - 1);
+    private int getPatternIndex(Optional<Item> sherd, int max) {
+        return MathHelper.clamp(this.potteryPatterns.indexOf(sherd.map(DecoratedPotPatterns::fromSherd).orElse(DecoratedPotPatterns.DECORATED_POT_SIDE_KEY)), 0, max - 1);
     }
 }

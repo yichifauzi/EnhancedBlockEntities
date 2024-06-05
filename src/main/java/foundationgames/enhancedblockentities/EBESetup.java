@@ -18,7 +18,6 @@ import foundationgames.enhancedblockentities.util.DateUtil;
 import foundationgames.enhancedblockentities.util.EBEUtil;
 import foundationgames.enhancedblockentities.util.ResourceUtil;
 import foundationgames.enhancedblockentities.util.duck.BakedModelManagerAccess;
-import net.devtech.arrp.json.models.JModel;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.minecraft.block.Block;
@@ -32,7 +31,6 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKey;
-import net.minecraft.resource.ResourceType;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
@@ -50,19 +48,17 @@ public enum EBESetup {;
 
         p = ResourceUtil.getBasePack();
 
-        ResourceUtil.addSingleChestModels("entity/chest/normal", "chest", p);
-        ResourceUtil.addDoubleChestModels("entity/chest/normal_left", "entity/chest/normal_right","chest", p);
-        ResourceUtil.addSingleChestModels("entity/chest/trapped", "trapped_chest", p);
-        ResourceUtil.addDoubleChestModels("entity/chest/trapped_left", "entity/chest/trapped_right","trapped_chest", p);
-        ResourceUtil.addSingleChestModels("entity/chest/christmas", "christmas_chest", p);
-        ResourceUtil.addDoubleChestModels("entity/chest/christmas_left", "entity/chest/christmas_right","christmas_chest", p);
-        ResourceUtil.addSingleChestModels("entity/chest/ender", "ender_chest", p);
+        ResourceUtil.addSingleChestModels("normal", "chest", p);
+        ResourceUtil.addDoubleChestModels("normal_left", "normal_right","chest", p);
+        ResourceUtil.addSingleChestModels("trapped", "trapped_chest", p);
+        ResourceUtil.addDoubleChestModels("trapped_left", "trapped_right","trapped_chest", p);
+        ResourceUtil.addSingleChestModels("christmas", "christmas_chest", p);
+        ResourceUtil.addDoubleChestModels("christmas_left", "christmas_right","christmas_chest", p);
+        ResourceUtil.addSingleChestModels("ender", "ender_chest", p);
 
-        p.addResource(ResourceType.CLIENT_RESOURCES, new Identifier("models/item/chest.json"),
-                ResourceUtil.createChestItemModelResource("chest_center").getBytes());
-        p.addResource(ResourceType.CLIENT_RESOURCES, new Identifier("models/item/trapped_chest.json"),
-                ResourceUtil.createChestItemModelResource("trapped_chest_center").getBytes());
-        p.addModel(JModel.model("block/ender_chest_center"), new Identifier("item/ender_chest"));
+        ResourceUtil.addChestItemModel(new Identifier("models/item/chest.json"), "chest_center", p);
+        ResourceUtil.addChestItemModel(new Identifier("models/item/trapped_chest.json"), "trapped_chest_center", p);
+        ResourceUtil.addParentModel("block/ender_chest_center", new Identifier("item/ender_chest"), p);
 
         p.addDirBlockSprites("entity/chest", "entity/chest/");
     }
@@ -139,7 +135,7 @@ public enum EBESetup {;
             var id = color != null ? color.getName()+"_shulker_box" : "shulker_box";
             ResourceUtil.addShulkerBoxBlockStates(color, pCompat);
             ResourceUtil.addShulkerBoxModels(color, p);
-            p.addModel(JModel.model("block/"+id), new Identifier("item/"+id));
+            ResourceUtil.addParentModel("block/"+id, new Identifier("item/"+id), p);
         }
 
         p.addDirBlockSprites("entity/shulker", "entity/shulker/");
