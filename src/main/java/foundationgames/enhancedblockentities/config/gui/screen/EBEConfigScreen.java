@@ -58,7 +58,6 @@ public class EBEConfigScreen extends Screen {
         super.init();
 
         this.optionsWidget = new WidgetRowListWidget(this.client, this.width, this.height - 69, 34, 316, 20);
-        //this.optionsWidget.bac
         this.options.clear();
 
         addOptions();
