@@ -8,6 +8,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.DecoratedPotPatterns;
 import net.minecraft.block.entity.DecoratedPotBlockEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
@@ -82,6 +83,14 @@ public class DecoratedPotModelSelector extends ModelSelector {
     }
 
     private int getPatternIndex(Item sherd, int max) {
-        return MathHelper.clamp(this.potteryPatterns.indexOf(DecoratedPotPatterns.fromSherd(sherd)), 0, max - 1);
+        return MathHelper.clamp(this.potteryPatterns.indexOf(getPatternFromSherd(sherd)), 0, max - 1);
+    }
+
+    private static RegistryKey<String> getPatternFromSherd(Item item) {
+        RegistryKey<String> registryKey = DecoratedPotPatterns.fromSherd(item);
+        if (registryKey == null) {
+            return DecoratedPotPatterns.fromSherd(Items.BRICK);
+        }
+        return registryKey;
     }
 }
