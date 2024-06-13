@@ -2,10 +2,10 @@ package foundationgames.enhancedblockentities.client.render.entity;
 
 import com.google.common.collect.ImmutableMap;
 import foundationgames.enhancedblockentities.client.model.ModelIdentifiers;
+import foundationgames.enhancedblockentities.client.model.misc.DecoratedPotModelSelector;
 import foundationgames.enhancedblockentities.client.render.BlockEntityRendererOverride;
 import foundationgames.enhancedblockentities.util.EBEUtil;
 import foundationgames.enhancedblockentities.util.duck.BakedModelManagerAccess;
-import net.minecraft.block.DecoratedPotPatterns;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.DecoratedPotBlockEntity;
 import net.minecraft.client.MinecraftClient;
@@ -13,8 +13,6 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.math.MathHelper;
@@ -89,24 +87,16 @@ public class DecoratedPotBlockEntityRendererOverride extends BlockEntityRenderer
             EBEUtil.renderBakedModel(vertexConsumers, blockEntity.getCachedState(), matrices, this.baseModel, light, overlay);
 
             EBEUtil.renderBakedModel(vertexConsumers, blockEntity.getCachedState(), matrices,
-                    this.potPatternModels.get(getPatternFromSherd(sherds.back()))[0], light, overlay);
+                    this.potPatternModels.get(DecoratedPotModelSelector.patternOf(sherds.back()))[0], light, overlay);
             EBEUtil.renderBakedModel(vertexConsumers, blockEntity.getCachedState(), matrices,
-                    this.potPatternModels.get(getPatternFromSherd(sherds.left()))[1], light, overlay);
+                    this.potPatternModels.get(DecoratedPotModelSelector.patternOf(sherds.left()))[1], light, overlay);
             EBEUtil.renderBakedModel(vertexConsumers, blockEntity.getCachedState(), matrices,
-                    this.potPatternModels.get(getPatternFromSherd(sherds.right()))[2], light, overlay);
+                    this.potPatternModels.get(DecoratedPotModelSelector.patternOf(sherds.right()))[2], light, overlay);
             EBEUtil.renderBakedModel(vertexConsumers, blockEntity.getCachedState(), matrices,
-                    this.potPatternModels.get(getPatternFromSherd(sherds.front()))[3], light, overlay);
+                    this.potPatternModels.get(DecoratedPotModelSelector.patternOf(sherds.front()))[3], light, overlay);
 
             matrices.pop();
         }
-    }
-
-    private static RegistryKey<String> getPatternFromSherd(Item item) {
-        RegistryKey<String> registryKey = DecoratedPotPatterns.fromSherd(item);
-        if (registryKey == null) {
-            return DecoratedPotPatterns.fromSherd(Items.BRICK);
-        }
-        return registryKey;
     }
 
     @Override
